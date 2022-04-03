@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import AppContext from "./Context/Context";
+import AssignmentApp from "./AssignmentApp/AssignmentApp";
+import useRoutes from "./useRoutes";
+import useStops from "./useStops";
+import useTabValue from "./useTabValue";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+const App  = () => {
+    const {route, positions} = useRoutes();
+    const [currentStop, increaseStopCount] = useStops();
+    const [tabValue, changeTabValue] = useTabValue();
+
+    return ( 
+        <AppContext.Provider
+            value = {{
+                route,
+                positions,
+                currentStop,
+                increaseStopCount,
+                tabValue,
+                changeTabValue
+            }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <AssignmentApp />
+        </AppContext.Provider>
+    )
 }
 
 export default App;
